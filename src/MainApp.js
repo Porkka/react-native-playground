@@ -1,0 +1,25 @@
+import React from 'react'
+import { Provider } from 'react-redux'
+import { AppRegistry } from 'react-native'
+import { createStore, applyMiddleware } from 'redux'
+
+import AppReducer from './redux'
+import AppWithNavigationState from './navigators/AppNavigator'
+import fetchMiddleware from './redux/middleware/fetchMiddleware'
+
+console.ignoredYellowBox = [ 'Remote debugger' ];
+
+class ReduxExampleApp extends React.Component {
+
+  store = createStore(AppReducer, applyMiddleware(fetchMiddleware));
+
+  render() {
+    return (
+      <Provider store={this.store}>
+        <AppWithNavigationState />
+      </Provider>
+    );
+  }
+}
+
+export default ReduxExampleApp;

@@ -19,10 +19,12 @@
 */
 import {
 	CREATE_ENTRY,
+	CREATE_SUCCESS,
 	READ_ENTRIES,
 	READ_SUCCESS,
 	FAIL,
 	UPDATE_ENTRY,
+	UPDATE_SUCCESS,
 	DELETE_ENTRY
 } from './actions'; // from ./types
 
@@ -33,17 +35,22 @@ const initial_state = {
 };
 
 export default function reducer(state = initial_state, action) {
-console.log(action);
 	switch (action.type) {
 		case CREATE_ENTRY:
 			return {
 				...state,
-				entries: [ ...state.entries, action.payload ]
+				refreshing: true
+			};
+		case CREATE_SUCCESS:
+			return {
+				...state,
+				refreshing: false,
+				// entries: [ ...state.entries, action.payload ]
 			};
 		case READ_ENTRIES:
 			return {
 				...state,
-				loading: false
+				refreshing: false
 			};
 		case READ_SUCCESS:
 			return {
@@ -54,11 +61,17 @@ console.log(action);
 			console.log('Something failed during entry action', action);
 			return {
 				...state,
-				loading: false
+				refreshing: false
 			};
 		case UPDATE_ENTRY:
 			return {
 				...state,
+				refreshing: true
+			};
+		case UPDATE_SUCCESS:
+			return {
+				...state,
+				refreshing: false,
 				entries: state.entries.map( user => {
 					if(user.id === action.payload.id) {
 						return { ...action.payload };

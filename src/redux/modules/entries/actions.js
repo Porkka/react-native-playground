@@ -17,11 +17,14 @@
 */
 
 export const CREATE_ENTRY = 'entries/create';
+export const CREATE_SUCCESS = 'entries/create_success';
+export const UPDATE_ENTRY = 'entries/update';
 export const READ_ENTRIES = 'entries/read';
 export const READ_SUCCESS = 'entries/read_success';
 export const FAIL = 'entries/fail';
-export const UPDATE_ENTRY = 'entries/update';
+export const UPDATE_SUCCESS = 'entries/update_success';
 export const DELETE_ENTRY = 'entries/delete';
+export const DELETE_SUCCESS = 'entries/delete_success';
 
 /**
 *
@@ -33,11 +36,16 @@ export const DELETE_ENTRY = 'entries/delete';
 * Andrew Clark - acdlite - Front-end engineer at Facebook. Co-creator of Redux. Creator of Recompose.
 *
 */
+const base_url = 'http://192.168.11.2:3000/';
 
 export function createEntry(entry) {
   return {
-    type: CREATE_ENTRY,
-    payload: entry
+    types: [ CREATE_ENTRY, CREATE_SUCCESS, FAIL ],
+    promise: {
+      method: 'POST',
+      url: base_url + 'post',
+      payload: entry
+    },
   };
 }
 export function readEntries() {
@@ -45,14 +53,18 @@ export function readEntries() {
     types: [ READ_ENTRIES, READ_SUCCESS, FAIL ],
     promise: {
       method: 'GET',
-      url: 'http://192.168.11.2:3000/entries',
+      url: base_url + 'posts',
     }
   };
 }
 export function updateEntry(entry) {
   return {
-    type: UPDATE_ENTRY,
-    payload: entry
+    types: [ UPDATE_ENTRY, UPDATE_SUCCESS, FAIL ],
+    promise: {
+      method: 'PUT',
+      url: base_url + 'post',
+      payload: entry
+    },
   };
 }
 export function deleteEntry(entry) {

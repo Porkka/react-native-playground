@@ -13,28 +13,33 @@ export default function fetchMiddleware({ dispacth, getState }) {
 
 	return next => action => {
 
+		// Deconstruct the action
 		const { promise, types, ...rest } = action;
 
-		// console.log('fetchMiddleware: ', next, action, promise, types, rest );
+		// If there is no promise key => continue app execution as normal.
+		// console.log('fetchMiddleware: ', next, action);
 		if(!promise) {
 			return next(action);
 		}
-		//		console.log('fetchMiddleware: ', promise, types, rest);
+		// console.log('Got Promise in fetchMiddleware: ', promise, types, rest);
 
+		// Layout the action types to dispacth accordingly, when the api call responses.
 		const [ REQUEST, SUCCESS, FAILURE ] = types;
 
-		// Request starting
+		// Request starting...
 		next({ ...rest, type: REQUEST });
 
+		console.log('Going to call ', promise.url, 'With parameters', promise);
+		// Do the request
 		actionPromise = fetch(promise.url, promise);
-		actionPromise.then(function(response) {
-        return response.json();
+		actionPromise.then(response => {
+    	return response.json();
     })
-    .then(function(payload) {
+    .then(payload => {
     	return next({ ...rest, payload, type: SUCCESS });
     })
-    .catch(function(e) {
-    	console.log('FETCH PHAIL!! ', e);
+    .catch(e => {
+    	console.log('API CALL PHAIL!! ', e);
     	return next({ ...rest, payload, type: FAIL });
     });	
 

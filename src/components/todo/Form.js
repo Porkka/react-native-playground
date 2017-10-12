@@ -1,9 +1,13 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, Text, Button, TextInput } from 'react-native';
+import { connect } from 'react-redux'
+import React, { Component } from 'react'
+import { StyleSheet, View, Text, Button, TextInput, Picker, Alert } from 'react-native'
 
+import Toast from 'react-native-simple-toast';
 import MCIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons'
 
 import CustomInput from '../utilities/CustomInput'
+import { readEntries, createEntry, updateEntry } from '../../redux/modules/entries/actions'
+
 
 /**
 * TODO: 
@@ -16,38 +20,96 @@ class Form extends Component {
     super(props);
     this.state = {
       entry: {
-        id: null,
+        id: 0,
         parent_id: 0,
         name: '',
         description: '',
-      }
+      },
+      entries: [],
     };
+    // Works on both iOS and Android
+    // Alert.alert(
+    //   'Alert Title',
+    //   'My Alert Msg',
+    //   [
+    //     {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+    //     {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+    //     {text: 'OK', onPress: () => console.log('OK Pressed')},
+    //   ],
+    //   { cancelable: false }
+    // )
+
+  }
+
+  componentWillMount() {
+    if(this.props.navigation.state.params.entry) {
+      console.log('Setting entry ', this.props.navigation.state.params.entry);
+      this.setState({ entry: this.props.navigation.state.params.entry });
+    }
+  }
+
+  componentWillReceiveProps(next_props) {
+
+  }
+
+  getItems() {
+    return this.state.entries.map((entry) => {
+      return <Picker.Item label={ entry.name } key={ entry.id } value={ entry.id } />
+    });
   }
 
   render() {
+    this.getItems();
     return (
       <View>
-
         <View style={ styles.input_group }>
           <View style={{ flex: 6 }}>
-            <CustomInput placeholder="Name" onChangeText={ value => { this.setState({ name: value }) } }/>
+            <CustomInput placeholder="Name" 
+            value={ this.state.entry.name }
+            onChangeText={ value => { this.setState({ entry: { ...this.state.entry, name: value } }) } }/>
           </View>
         </View>
 
         <View style={ styles.input_group }>
           <View style={{ flex: 6 }}>
-            <CustomInput placeholder="Description" multiline={true} onChangeText={ value => { this.setState({ description: value }) } }/>
+            <CustomInput placeholder="Description" 
+            multiline={true} 
+            value={ this.state.entry.description }
+            onChangeText={ value => { this.setState({ entry: { ...this.state.entry, description: value } }) } }/>
           </View>
         </View>
+
+        <Picker style={ styles.controlWidth }  
+          selectedValue={ this.state.entry.parent_id }  
+          onValueChange={ value => { this.setState({ entry: { ...this.state.entry, parent_id: value } }) } }
+        >
+          <Picker.Item label="No Parent" value="0" />
+          { this.getItems() }
+        </Picker>
+
         <View style={ styles.btn_container }>
-          <Button title="Save" onPress={ () => console.log(this.state) }></Button>
+          <Button title="Save" onPress={ () => this.saveEntry() }></Button>
         </View>
       </View>
     );
   }
 
-  login() {
-    
+  saveEntry() {
+
+    if(!this.state.entry.id) {
+      this.props.dispatch(createEntry(this.state.entry)).then(( response ) => this.handleResponse(response));
+    } else {
+      this.props.dispatch(updateEntry(this.state.entry)).then(( response ) => this.handleResponse(response));
+    }
+
+  }
+
+  handleResponse(response) {
+    if(response.status != 203) {
+      Toast.show("Couldn't save entry. Please try again at a later time.");
+    } else {
+      this.props.navigation.navigate('Home');
+    }
   }
 
 }
@@ -73,4 +135,11 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Form;
+
+const map_state_props = (state) => {
+  return {
+    entries: state.entries,
+  }
+};
+
+export default connect(map_state_props)(Form);

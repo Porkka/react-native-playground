@@ -50,6 +50,19 @@ class Home extends Component {
     this.props.dispatch(readEntries());
   }
 
+  _onPressItem(item) { /* example on press event on rendered item. Could be call straight to navigation. */
+    this.props.navigation.navigate('EntrySave', { entry: item })
+  }
+
+  _renderItem = ({item}) => (
+    <View style={ styles.list_item }>
+      <TouchableOpacity style={ styles.list_item_btn } onPress={ () => { this._onPressItem(item) } }>
+        <Text style={ styles.list_item_txt }>{item.name}</Text>
+      </TouchableOpacity>
+      <MCIcons name="dots-vertical" size={25} color="#555551" style={{ flex: 1 }}></MCIcons>
+    </View>
+  )
+
   render() {
     if(!this.state.data_source.length) {
       var content = (
@@ -64,12 +77,10 @@ class Home extends Component {
       var ds = this.state.data_source;
       var content = (
         <View style={ styles.list }>
-          <FlatList data={ ds } keyExtractor={this._keyExtractor} refreshing={ this.state.refreshing } onRefresh={ () => this._handleRefresh() } renderItem={ ({item}) => <View style={ styles.list_item }>
-            <View style={{ justifyContent: 'center', flex: 14 }}>
-              <Text style={ styles.list_item_txt }>{item.name}</Text>
-            </View>
-            <MCIcons name="dots-vertical" size={25} color="#555551" style={{ flex: 1 }}></MCIcons>
-          </View>}/>
+          <FlatList data={ ds } 
+            keyExtractor={this._keyExtractor} 
+            refreshing={ this.state.refreshing } 
+            onRefresh={ () => this._handleRefresh() } renderItem={this._renderItem}/>
         </View>
       );
     }
@@ -108,20 +119,28 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
 
+  list_item_btn: {
+    flex: 14,
+    justifyContent: 'center'
+  },
+
   list_item_txt: {
     fontSize: 14,
   },
 
   icon_btn: {
+    right: 0,
+    bottom: 0,
     width: 75,
     height: 75,
     elevation: 2,
     marginBottom: 20,
     borderRadius: 100,
     paddingVertical: 5,
+    position: 'absolute',
+    alignItems: 'center',
     paddingHorizontal: 2,
     marginHorizontal: 10,
-    alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#BE7EFF',
   },

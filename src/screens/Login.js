@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, KeyboardAvoidingView, View, Text, Button, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
+import { StyleSheet, KeyboardAvoidingView, View, Text, Button, TouchableOpacity, Alert } from 'react-native';
 
 import LoginForm from '../components/login/Form';
 import SignUpForm from '../components/signup/Form';
@@ -17,11 +18,34 @@ class Login extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.props = nextProps;
+    console.log( 'Checking connectivity', this.props, nextProps );
+    this._checkNetworkStatus();
+  }
+
+  _checkNetworkStatus() { // Refactor to network status component
+    if(!this.props.isOnline) {
+      // Works on both iOS and Android
+      Alert.alert(
+        "Offline",
+        "You don't have internet connection",
+        [
+          {text: 'OK', onPress: () => console.log('OK Pressed')},
+        ],
+        { cancelable: false }
+      )
+    }
+  }
+
   render() {
+
+
     let navigation = this.props.navigation;
     let content = this.state.active_screen == 'login' ? <LoginForm navigation={navigation}/> : <SignUpForm navigation={navigation}/>;
     let login_caret = this.state.active_screen == 'login' ? <View style={ styles.caret_up }></View> : null;
     let sign_up_caret = this.state.active_screen == 'sign_up' ? <View style={ styles.caret_up }></View> : null;
+
     return (
       <KeyboardAvoidingView style={styles.container}>
 
@@ -52,6 +76,12 @@ class Login extends Component {
   }
 
 }
+
+const map_state_to_props = (state) => {
+  return {
+    isOnline: state.network.isOnline
+  }
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -127,4 +157,4 @@ const styles = StyleSheet.create({
   }
 
 });
-export default Login;
+export default connect(map_state_to_props)(Login);

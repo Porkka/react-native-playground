@@ -3,6 +3,7 @@ import { NavigationActions } from 'react-navigation'
 import { AppNavigator } from '../navigators/AppNavigator'
 
 import entries from './modules/entries/reducer';
+import network from './modules/network/reducer';
 
 const initial_nav_state = AppNavigator.router.getStateForAction(AppNavigator.router.getActionForPathAndParams('Login'));
 
@@ -43,7 +44,7 @@ function auth(state = initialAuthState, action) {
 }
 
 const AppReducer = combineReducers({
-  nav, auth, entries
+  nav, auth, network, entries
 });
 
 export default AppReducer;

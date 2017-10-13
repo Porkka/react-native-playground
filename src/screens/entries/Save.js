@@ -10,15 +10,12 @@ import Form from '../../components/todo/Form'
 
 class Save extends Component {
 
+  static navigationOptions = ({ navigation }) => ({
+    title: navigation.state.params.title
+  });
+
   constructor(props) {
     super(props);
-    var ent = this.props.navigation.state.params.entry;
-    if(ent) {
-      this.props.navigation.setParams({ title: 'Update entry - ' + ent.name });
-    } else {
-      this.props.navigation.setParams({ title: 'Add entry to Todo list'});
-    }
-
   }
 
   componentWillMount() {

@@ -17,6 +17,7 @@ class Form extends Component {
   }
 
   render() {
+
     return (
       <View>
 
@@ -57,6 +58,7 @@ class Form extends Component {
         </View>
       </View>
     );
+
   }
 
   login() {

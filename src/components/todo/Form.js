@@ -27,24 +27,14 @@ class Form extends Component {
       },
       entries: [],
     };
-    // Works on both iOS and Android
-    // Alert.alert(
-    //   'Alert Title',
-    //   'My Alert Msg',
-    //   [
-    //     {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
-    //     {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-    //     {text: 'OK', onPress: () => console.log('OK Pressed')},
-    //   ],
-    //   { cancelable: false }
-    // )
-
   }
 
   componentWillMount() {
-    if(this.props.navigation.state.params.entry) {
-      console.log('Setting entry ', this.props.navigation.state.params.entry);
-      this.setState({ entry: this.props.navigation.state.params.entry });
+    if(this.props.navigation.state.params) {
+      if(this.props.navigation.state.params.entry) {
+        console.log('Setting entry ', this.props.navigation.state.params.entry);
+        this.setState({ entry: this.props.navigation.state.params.entry });
+      }
     }
   }
 
@@ -84,8 +74,8 @@ class Form extends Component {
           onValueChange={ value => { this.setState({ entry: { ...this.state.entry, parent_id: value } }) } }
         >
           <Picker.Item label="No Parent" value="0" />
-          { this.getItems() }
-        </Picker>
+            { this.getItems() }
+          </Picker>
 
         <View style={ styles.btn_container }>
           <Button title="Save" onPress={ () => this.saveEntry() }></Button>

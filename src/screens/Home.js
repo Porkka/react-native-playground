@@ -51,7 +51,7 @@ class Home extends Component {
   }
 
   _onPressItem(item) { /* example on press event on rendered item. Could be call straight to navigation. */
-    this.props.navigation.navigate('EntrySave', { entry: item })
+    this.props.navigation.navigate('EntrySave', { entry: item, title: 'Update entry - ' + item.name })
   }
 
   _renderItem = ({item}) => (
@@ -67,10 +67,10 @@ class Home extends Component {
     if(!this.state.data_source.length) {
       var content = (
         <View style={[ styles.centering_container, { flex: 1 } ]}>
-          <View style={[  styles.icon_btn , styles.centering_container, { marginBottom: 20 } ]}>
+          <View style={[  styles.icon_btn , styles.centering_container, { marginBottom: 20, width: 100, height: 100, backgroundColor: '#DCDCDC' } ]}>
             <MCIcons name="lead-pencil" size={55} color="#C7C7C7"></MCIcons>
           </View>
-          <Text style={{ fontSize: 16 }}>UU YEAH!</Text>
+          <Text style={{ fontSize: 16 }}>All done!</Text>
         </View>
       );
     } else {
@@ -88,7 +88,8 @@ class Home extends Component {
       <View style={{ flex: 1 }}>
         {content}
         <View style={{ alignSelf: 'flex-end' }}>
-          <TouchableOpacity style={[ styles.centering_container, styles.icon_btn ]} onPress={ () => this.props.navigation.navigate('EntrySave') }>
+          <TouchableOpacity style={[ styles.centering_container, styles.icon_btn, { right: 0, bottom: 0, position: 'absolute', } ]} 
+          onPress={ () => this.props.navigation.navigate('EntrySave', { title: 'Add entry to Todo list'}) }>
             <MCIcons name="plus" size={35} color="#FFFFFF"></MCIcons>
           </TouchableOpacity>
         </View>
@@ -129,15 +130,12 @@ const styles = StyleSheet.create({
   },
 
   icon_btn: {
-    right: 0,
-    bottom: 0,
     width: 75,
     height: 75,
     elevation: 2,
     marginBottom: 20,
     borderRadius: 100,
     paddingVertical: 5,
-    position: 'absolute',
     alignItems: 'center',
     paddingHorizontal: 2,
     marginHorizontal: 10,

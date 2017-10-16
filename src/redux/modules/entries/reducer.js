@@ -1,4 +1,4 @@
-/**
+ /**
 *
 * Reducers
 *
@@ -25,13 +25,14 @@ import {
 	FAIL,
 	UPDATE_ENTRY,
 	UPDATE_SUCCESS,
-	DELETE_ENTRY
+	DELETE_ENTRY,
+	DELETE_SUCCESS,
 } from './actions'; // from ./types
 
 
 const initial_state = {
 	entries: [ ],
-	loading: false
+	refreshing: false
 };
 
 export default function reducer(state = initial_state, action) {
@@ -79,13 +80,18 @@ export default function reducer(state = initial_state, action) {
 					return user;
 				})
 			};
-		case DELETE_ENTRY:
+		case DELETE_SUCCESS:
 			return {
 				...state,
+				refreshing: false,
 				entries: state.entries.filter( user => user.id !== action.payload.id )
 			};
+		case DELETE_ENTRY:
 		default:
-			return state;
+			return {
+				...state,
+				refreshing: true
+			};
 	}
 
 }

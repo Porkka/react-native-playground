@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, Button, TouchableOpacity, FlatList } from 'react-native'
+import { StyleSheet, View, Text, Button, TouchableOpacity, Alert } from 'react-native'
 
 import MCIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons'
 
-import { readEntries } from '../redux/modules/entries/actions'
+import TodoList from '../components/todo/List'
+import { readEntries, deleteEntry } from '../redux/modules/entries/actions'
 
 class Home extends Component {
 
@@ -25,9 +26,9 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data_source: [ ],
-      refreshing: false,
-    };
+      entries: [ ],
+      refreshing: false
+    }
   }
 
   componentWillMount() {
@@ -37,51 +38,50 @@ class Home extends Component {
   componentWillReceiveProps(next_props) {
     if(this.props.entries !== next_props.entries) {
       this.setState({
-        data_source: next_props.entries.entries
+        entries: next_props.entries.entries
       });
     }
+  }
+
+  // Pulling 
+  _handleListRefresh() {
+    this.setState({refreshing: true});
+    this.props.dispatch(readEntries());
     this.setState({refreshing: false});
   }
 
-  _keyExtractor = (item, index) => item.id;
-
-  _handleRefresh() {
-    this.setState({refreshing: true});
-    this.props.dispatch(readEntries());
-  }
-
-  _onPressItem(item) { /* example on press event on rendered item. Could be call straight to navigation. */
+  _handleItemPress(item) { /* example on press event on rendered item. Could be call straight to navigation. */
     this.props.navigation.navigate('EntrySave', { entry: item, title: 'Update entry - ' + item.name })
   }
 
-  _renderItem = ({item}) => (
-    <View style={ styles.list_item }>
-      <TouchableOpacity style={ styles.list_item_btn } onPress={ () => { this._onPressItem(item) } }>
-        <Text style={ styles.list_item_txt }>{item.name}</Text>
-      </TouchableOpacity>
-      <MCIcons name="dots-vertical" size={25} color="#555551" style={{ flex: 1 }}></MCIcons>
-    </View>
-  )
+  _handleItemDelete() {
+    Alert.alert(
+      'Are you sure?',
+      'You want to delete this entry?',
+      [
+        {text: 'Cancel', onPress: () => {  } },
+        {text: 'OK', onPress: () => this.props.dispatch(deleteEntry()) },
+      ],
+      { cancelable: false }
+    )
+  }
 
   render() {
-    if(!this.state.data_source.length) {
+    if(!this.state.entries.length) {
       var content = (
         <View style={[ styles.centering_container, { flex: 1 } ]}>
-          <View style={[  styles.icon_btn , styles.centering_container, { marginBottom: 20, width: 100, height: 100, backgroundColor: '#DCDCDC' } ]}>
-            <MCIcons name="lead-pencil" size={55} color="#C7C7C7"></MCIcons>
-          </View>
-          <Text style={{ fontSize: 16 }}>All done!</Text>
+          <MCIcons name="inbox" size={105} color="#C7C7C7" style={{ marginBottom: 5 }}></MCIcons>
+          <Text style={{ fontSize: 18 }}>All done!</Text>
         </View>
       );
     } else {
-      var ds = this.state.data_source;
       var content = (
-        <View style={ styles.list }>
-          <FlatList data={ ds } 
-            keyExtractor={this._keyExtractor} 
-            refreshing={ this.state.refreshing } 
-            onRefresh={ () => this._handleRefresh() } renderItem={this._renderItem}/>
-        </View>
+        <TodoList 
+         data_source={ this.state.entries } 
+         handleListRefresh={ () => this._handleListRefresh() } 
+         handleItemPress={ (item) => this._handleItemPress(item) } 
+         handleItemDelete={ (item) => this._handleItemDelete(item) } 
+         refreshing={ this.state.refreshing } />
       );
     }
     return (
@@ -106,29 +106,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
 
-  list: {
-    flex: 1,
-    paddingVertical: 10,
-    paddingHorizontal: 10
-  },
-
-  list_item: {
-    marginBottom: 3,
-    paddingVertical: 15,
-    flexDirection: 'row',
-    paddingHorizontal: 15,
-    backgroundColor: '#FFFFFF',
-  },
-
-  list_item_btn: {
-    flex: 14,
-    justifyContent: 'center'
-  },
-
-  list_item_txt: {
-    fontSize: 14,
-  },
-
   icon_btn: {
     width: 75,
     height: 75,
@@ -148,6 +125,7 @@ const styles = StyleSheet.create({
 const map_state_props = (state) => {
   return {
     entries: state.entries,
+    refreshing: state.refreshing,
   }
 };
 

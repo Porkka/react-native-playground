@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, KeyboardAvoidingView, View, Text, Button, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, KeyboardAvoidingView, View, Text, Button, TouchableOpacity, Alert, Vibration } from 'react-native';
 
 import LoginForm from '../components/login/Form';
 import SignUpForm from '../components/signup/Form';
+
+import * as global_styles from '../styles/global';
 
 class Login extends Component {
 
@@ -20,12 +22,12 @@ class Login extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.props = nextProps;
-    console.log( 'Checking connectivity', this.props, nextProps );
     this._checkNetworkStatus();
   }
 
   _checkNetworkStatus() { // Refactor to network status component
     if(!this.props.isOnline) {
+      Vibration.vibrate();
       // Works on both iOS and Android
       Alert.alert(
         "Offline",
@@ -99,7 +101,6 @@ const styles = StyleSheet.create({
     fontFamily: 'notoserif'
   },
 
-
   b_tab_nav: {
     flex: 1,
     bottom: 0,
@@ -137,7 +138,7 @@ const styles = StyleSheet.create({
     flex: 8,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#850EFF'
+    backgroundColor: global_styles.main_color
   },
 
 
@@ -148,12 +149,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF'
   },
 
-
   footer: {
     flex: 1,
     borderTopWidth: 2,
-    borderColor: '#850EFF',
-    backgroundColor: '#850EFF',
+    borderColor: global_styles.main_color,
+    backgroundColor: global_styles.main_color,
   }
 
 });

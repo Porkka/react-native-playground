@@ -9,6 +9,13 @@ import fetchMiddleware from './redux/middleware/fetchMiddleware'
 
 console.ignoredYellowBox = [ 'Remote debugger' ];
 
+
+export const App = () => (
+  <MenuContext>
+    <YourApp />
+  </MenuContext>
+);
+
 class MainApp extends React.Component {
 
   store = createStore(AppReducer, applyMiddleware(fetchMiddleware));

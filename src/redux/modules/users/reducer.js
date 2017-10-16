@@ -30,7 +30,7 @@ import {
 
 const initial_state = {
 	users: [ ],
-	loading: false
+	refreshing: false
 };
 
 export default function reducer(state = initial_state, action) {
@@ -44,7 +44,7 @@ export default function reducer(state = initial_state, action) {
 		case READ_USERS:
 			return {
 				...state,
-				loading: false
+				refreshing: false
 			};
 		case SUCCESS:
 			return {
@@ -54,7 +54,7 @@ export default function reducer(state = initial_state, action) {
 		case FAIL:
 			return {
 				...state,
-				loading: false
+				refreshing: false
 			};
 		case UPDATE_USER:
 			return {

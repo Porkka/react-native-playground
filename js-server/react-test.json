@@ -43,7 +43,7 @@
 			"password": "1234"
 		}
 	],
-	"posts": [
+	"entries": [
 		{
 			"id": 1,
 			"parent_id": 0,

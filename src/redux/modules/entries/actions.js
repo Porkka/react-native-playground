@@ -43,7 +43,7 @@ export function createEntry(entry) {
     types: [ CREATE_ENTRY, CREATE_SUCCESS, FAIL ],
     promise: {
       method: 'POST',
-      url: base_url + 'post',
+      url: base_url + 'entry',
       payload: entry
     },
   };
@@ -53,7 +53,7 @@ export function readEntries() {
     types: [ READ_ENTRIES, READ_SUCCESS, FAIL ],
     promise: {
       method: 'GET',
-      url: base_url + 'posts',
+      url: base_url + 'entries',
     }
   };
 }
@@ -62,14 +62,18 @@ export function updateEntry(entry) {
     types: [ UPDATE_ENTRY, UPDATE_SUCCESS, FAIL ],
     promise: {
       method: 'PUT',
-      url: base_url + 'post',
+      url: base_url + 'entry',
       payload: entry
     },
   };
 }
 export function deleteEntry(entry) {
   return {
-    type: DELETE_ENTRY,
-    payload: entry
-  };
+    types: [ DELETE_ENTRY, DELETE_SUCCESS, FAIL ],
+    promise: {
+      method: 'DELETE',
+      url: base_url + 'entry',
+      payload: entry
+    }
+  }
 }

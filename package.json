@@ -11,6 +11,7 @@
     "react-native": "0.48.4",
     "react-native-dotenv": "^0.1.0",
     "react-native-oauth": "^2.2.0",
+    "react-native-popup-menu": "^0.8.3",
     "react-native-simple-auth": "^2.1.0",
     "react-native-simple-toast": "0.0.7",
     "react-native-vector-icons": "^4.4.0",

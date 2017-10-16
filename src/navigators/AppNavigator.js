@@ -4,14 +4,13 @@ import { connect } from 'react-redux'
 import { NetInfo } from 'react-native'
 import { addNavigationHelpers, StackNavigator } from 'react-navigation'
 
-
-
-import { setConnectivity } from '../redux/modules/network/actions'
+import { MenuContext } from 'react-native-popup-menu';
 
 import LoginScreen from '../screens/Login'
 import ProfileScreen from '../screens/Profile'
 import DrawerNavigation from './DrawerNavigation'
 import EntrySaveScreen from '../screens/entries/Save'
+import { setConnectivity } from '../redux/modules/network/actions'
 
 export const AppNavigator = StackNavigator({
   Login: { screen: LoginScreen },
@@ -23,21 +22,18 @@ export const AppNavigator = StackNavigator({
 class AppWithNavigationState extends Component {
 	
 	componentWillMount = () => {
-		console.log('AppWithNavigationState mounted!');
 		NetInfo.isConnected.addEventListener(
 		  'connectionChange',
 		  this.onConnectivityChange
 		);
 	}
 	componentWillUnMount = () => {
-		console.log('AppWithNavigationState UnMounted!');
 		NetInfo.isConnected.removeEventListener(
 		  'connectionChange',
 		  this.onConnectivityChange
 		);
 	}
 	onConnectivityChange = (connected) => {
-		console.log('Change!', connected);
 		this.props.dispatch(setConnectivity(connected))
 	}
 
@@ -45,7 +41,9 @@ class AppWithNavigationState extends Component {
 		const dispatch = this.props.dispatch;
 		const nav = this.props.nav;
 		return (
-  		<AppNavigator navigation={addNavigationHelpers({ dispatch, state: nav })} />
+			<MenuContext>
+  			<AppNavigator navigation={addNavigationHelpers({ dispatch, state: nav })} />
+			</MenuContext>
 		)
 	}
 

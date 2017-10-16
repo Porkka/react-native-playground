@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, Button, TouchableOpacity } from 'react-native'
+import { View, Text, Button, TouchableOpacity } from 'react-native'
+
+import { styles_common } from '../styles/global'
 
 import { NavigationActions } from 'react-navigation'
 import EvilIcon from 'react-native-vector-icons/dist/EvilIcons'
@@ -9,13 +11,8 @@ import MCIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons'
 
 const Main = ({ dispatch }) =>  {
   return (
-    <View style={{ flex: 1 }}>
-      <View style={[ styles.centering_container, { flex: 1 } ]}>
-        <View style={[  styles.icon_btn , styles.centering_container, {  flex: 1, marginBottom: 20 } ]}>
-          <MCIcons name="lead-pencil" size={55} color="#C7C7C7"></MCIcons>
-        </View>
-        <Text style={{ fontSize: 16 }}>UU YEAH, LET'S DO SOME SHEEAT!</Text>
-      </View>
+    <View style={[ { flex: 1 }, styles_common.centering_container ]}>
+      <Text>Nothing here</Text>
     </View>
   );
 }
@@ -34,26 +31,5 @@ Main.navigationOptions = ({ navigation }) => ({
 Main.propTypes = {
   dispatch: PropTypes.func.isRequired
 };
-
-const styles = StyleSheet.create({
-
-  centering_container: {
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-
-  icon_btn: {
-    width: 185,
-    height: 185,
-    borderRadius: 100,
-    paddingVertical: 5,
-    paddingHorizontal: 2,
-    marginHorizontal: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#DEDEDE',
-  },
-
-});
 
 export default connect()(Main);

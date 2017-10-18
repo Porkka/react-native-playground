@@ -21,8 +21,10 @@ class List extends Component {
     );
   }
 
-  // Render list item, which in this case is it's own component.
-  // Pass in the action and item as props, so they can be called from the TodoItem.
+  /**
+   * Render list item, which in this case is it's own component.
+   * Pass in the action and item as props, so they can be called from the TodoItem.
+   */
   _renderItem = ({ item }) => (
     <TodoItem item={ item } 
      handleItemPress={ (item) => this.props.handleItemPress(item) } 

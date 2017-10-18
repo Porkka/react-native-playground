@@ -6,6 +6,7 @@ import { StyleSheet, View, Text, Button, TouchableOpacity, Alert } from 'react-n
 import MCIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons'
 
 import TodoList from '../components/todo/List'
+import { common_styles } from '../styles/global'
 import { readEntries, deleteEntry } from '../redux/modules/entries/actions'
 
 class Home extends Component {
@@ -13,7 +14,7 @@ class Home extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       drawerLabel: 'Home',
-      drawerIcon: ({ tintColor }) => ( <MCIcons name="home" size={25} color={tintColor}></MCIcons> ),
+      drawerIcon: ({  tint_color  }) => ( <MCIcons name="home" size={25} color={ tint_color }></MCIcons> ),
       headerLeft: <TouchableOpacity onPress={ () => { navigation.navigate('DrawerOpen') } }>
         <MCIcons name="menu" size={35} color="#555551" style={{ marginLeft: 10 }}></MCIcons>
       </TouchableOpacity>,
@@ -43,14 +44,18 @@ class Home extends Component {
     }
   }
 
-  // Pulling 
+  // Pulling from the top of the list
   _handleListRefresh() {
     this.setState({refreshing: true});
     this.props.dispatch(readEntries());
     this.setState({refreshing: false});
   }
 
-  _handleItemPress(item) { /* example on press event on rendered item. Could be call straight to navigation. */
+  /* 
+   * Example on press event on rendered item. Could be called inline without additional method.
+   *
+   */
+  _handleItemPress(item) {
     this.props.navigation.navigate('EntrySave', { entry: item, title: 'Update entry - ' + item.name })
   }
 
@@ -88,7 +93,7 @@ class Home extends Component {
       <View style={{ flex: 1 }}>
         {content}
         <View style={{ alignSelf: 'flex-end' }}>
-          <TouchableOpacity style={[ styles.centering_container, styles.icon_btn, { right: 0, bottom: 0, position: 'absolute', } ]} 
+          <TouchableOpacity style={ common_styles.fab } 
           onPress={ () => this.props.navigation.navigate('EntrySave', { title: 'Add entry to Todo list'}) }>
             <MCIcons name="plus" size={35} color="#FFFFFF"></MCIcons>
           </TouchableOpacity>
@@ -104,20 +109,6 @@ const styles = StyleSheet.create({
   centering_container: {
     alignItems: 'center',
     justifyContent: 'center'
-  },
-
-  icon_btn: {
-    width: 75,
-    height: 75,
-    elevation: 2,
-    marginBottom: 20,
-    borderRadius: 100,
-    paddingVertical: 5,
-    alignItems: 'center',
-    paddingHorizontal: 2,
-    marginHorizontal: 10,
-    justifyContent: 'center',
-    backgroundColor: '#BE7EFF',
   },
 
 });

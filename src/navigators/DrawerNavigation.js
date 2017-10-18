@@ -1,6 +1,7 @@
 import { DrawerNavigator } from 'react-navigation'
 
 import HomeScreen from '../screens/Home'
+import CameraScreen from '../screens/Camera'
 import ProfileScreen from '../screens/Profile'
 
 export default DrawerNavigator (
@@ -10,6 +11,9 @@ export default DrawerNavigator (
     },
     Profile: {
       screen: ProfileScreen,
+    },
+    Camera: {
+      screen: CameraScreen,
     }
   }, {
      drawerWidth: 300,

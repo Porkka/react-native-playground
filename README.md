@@ -2,9 +2,23 @@
 Testing React Native
 
 ###### Topics still to explore
+- Animations
 - WebSockets
 - Push Notifications
 
+###### Animations
+TODO: Slide FlatList items from the right on component mount.
+
+###### Websockets
+TODO: Receive from and send something over websocket.
+
+For testing purposes WebSocket server will be installed to the machine.
+https://github.com/websockets/ws
+```
+npm i ws
+```
+###### Push Notifications
+TODO
 ###### Redux
 https://github.com/reactjs/redux
 http://redux.js.org/
@@ -82,6 +96,10 @@ https://facebook.github.io/react-native/docs/asyncstorage.html
 Saving data localy. Useful when network connection is lost. Not well implemented here, but you can view it in the ```src/components/todo/Form```.
 ###### Runing On Device
 https://facebook.github.io/react-native/docs/running-on-device.html
+
+###### Websockets
+###### Websockets
+
 
 Method 1: Using adb reverse (recommended)
 Common ADB location on windows:

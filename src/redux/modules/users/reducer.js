@@ -20,13 +20,13 @@
 import {
 	CREATE_USER,
 	LOGIN_USER,
+	LOGIN_SUCCESS,
 	READ_USERS,
 	SUCCESS,
 	FAIL,
 	UPDATE_USER,
 	DELETE_USER
 } from './actions'; // from ./types
-
 
 const initial_state = {
 	users: [ ],
@@ -40,6 +40,16 @@ export default function reducer(state = initial_state, action) {
 			return {
 				...state,
 				users: [ ...state.users, action.payload ]
+			};
+		case LOGIN_USER:
+			return {
+				...state,
+				refreshing: true
+			};
+		case LOGIN_SUCCESS:
+			return {
+				...state,
+				refreshing: false,
 			};
 		case READ_USERS:
 			return {

@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, KeyboardAvoidingView, View, Text, Button, TouchableOpacity, Alert, Vibration } from 'react-native';
+import { StyleSheet, ScrollView, View, Text, Button, TouchableOpacity, Alert, Vibration } from 'react-native';
+
+import * as global_styles from '../styles/global';
 
 import LoginForm from '../components/login/Form';
 import SignUpForm from '../components/signup/Form';
 
-import * as global_styles from '../styles/global';
+import { loginUser } from '../redux/modules/users/actions'
 
 class Login extends Component {
 
@@ -40,17 +42,22 @@ class Login extends Component {
     }
   }
 
+  _handleLogin(user) {
+    this.props.dispatch(loginUser(user)).then(( response ) => this.handleLoginResponse(response));
+  }
+  handleLoginResponse(response) {
+    console.log('Handling login response: ', response);
+    this.props.navigation.navigate('Main');
+  }
+
   render() {
 
-
-    let navigation = this.props.navigation;
-    let content = this.state.active_screen == 'login' ? <LoginForm navigation={navigation}/> : <SignUpForm navigation={navigation}/>;
+    let content = this.state.active_screen == 'login' ? <LoginForm handleLogin={() => this._handleLogin() }/> : <SignUpForm handleLogin={() => this._handleLogin() }/>;
     let login_caret = this.state.active_screen == 'login' ? <View style={ styles.caret_up }></View> : null;
     let sign_up_caret = this.state.active_screen == 'sign_up' ? <View style={ styles.caret_up }></View> : null;
 
     return (
-      <KeyboardAvoidingView style={styles.container}>
-
+      <View style={styles.container}>
         <View style={styles.header}>
           <Text style={ styles.h1 }>Do some work!</Text>
           <Text style={ styles.h1_small }>Lorem ipsum dolor sit amet</Text>
@@ -72,8 +79,7 @@ class Login extends Component {
 
         <View style={styles.footer}>
         </View>
-
-      </KeyboardAvoidingView>
+      </View>
     );
   }
 
@@ -135,7 +141,7 @@ const styles = StyleSheet.create({
 
 
   header: {
-    flex: 8,
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: global_styles.main_color
@@ -143,18 +149,13 @@ const styles = StyleSheet.create({
 
 
   content: {
-    flex: 14,
+    flex: 2,
     paddingVertical: 20,
-    paddingHorizontal: 50,
-    backgroundColor: '#FFFFFF'
-  },
-
-  footer: {
-    flex: 1,
-    borderTopWidth: 2,
+    borderBottomWidth: 4,
+    paddingHorizontal: 10,
+    backgroundColor: '#FFFFFF',
     borderColor: global_styles.main_color,
-    backgroundColor: global_styles.main_color,
-  }
+  },
 
 });
 export default connect(map_state_to_props)(Login);

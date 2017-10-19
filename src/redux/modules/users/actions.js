@@ -17,6 +17,7 @@
 */
 
 export const LOGIN_USER = 'users/login';
+export const LOGIN_SUCCESS = 'users/login_success';
 export const CREATE_USER = 'users/create';
 export const READ_USERS = 'users/read';
 export const SUCCESS = 'users/success';
@@ -43,14 +44,15 @@ export function createUser(user) {
 }
 export function loginUser(user) {
   return {
-    types: [ LOGIN_USER, SUCCESS, FAIL ],
+    types: [ LOGIN_USER, LOGIN_SUCCESS, FAIL ],
     promise: {
       method: 'POST',
-      url: 'http://192.168.11.2:3000/users/' + user.id,
+      url: 'http://192.168.11.2:3000/users',
       payload: user,
     }
   }
 }
+// You can call this from any reduxed component as this.props.goToComponent1(params)
 export function readUsers() {
   
   return {

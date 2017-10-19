@@ -39,7 +39,7 @@ export default function fetchMiddleware({ dispacth, getState }) {
     	return next({ ...rest, payload, type: SUCCESS });
     })
     .catch(e => {
-    	console.log('API CALL PHAIL!! ', e);
+    	console.log('API CALL PHAIL!! ', promise, e);
     	return next({ ...rest, payload, type: FAIL });
     });	
 

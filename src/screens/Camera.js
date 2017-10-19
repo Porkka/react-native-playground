@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, TouchableOpacity, Vibration, Alert } from 'react-native'
 
 import RNCamera from 'react-native-camera'
 import MCIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons'
@@ -20,6 +20,9 @@ class Camera extends Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      scanning: true, // Set flag for barcode scanner. Otherwise it's called multiple times in a second.
+    };
   }
 
   render() {
@@ -29,6 +32,7 @@ class Camera extends Component {
           ref={(cam) => {
             this.camera = cam;
           }}
+          onBarCodeRead={this._readCode.bind(this)}
           style={styles.preview}
           aspect={RNCamera.constants.Aspect.fill}>
           <Text style={styles.capture} onPress={this.takePicture.bind(this)}>[CAPTURE]</Text>
@@ -37,11 +41,41 @@ class Camera extends Component {
     );
   }
 
+  _readCode(data) {
+    if(!this.state.scanning) {
+      return;
+    }
+
+    this.setState({ scanning: false });
+
+    Vibration.vibrate();
+    Alert.alert(
+      "Got code", // Title
+      (data.data + "\n" + "It's type is: " + data.type), // Text
+      [
+        {text: 'OK', onPress: () => { this.setState({  scanning: true }) } },
+      ],
+      { cancelable: false }
+    )
+
+    return;
+  }
+
   takePicture() {
     const options = {};
     //options.location = ...
     this.camera.capture({metadata: options})
-      .then((data) => console.log(data))
+      .then((data) => {
+        Vibration.vibrate();
+        Alert.alert(
+          "Got image", // Title
+          "mediaUri: " + data.mediaUri + "\nPath: " + data.path,
+          [
+            { text: 'OK' },
+          ],
+          { cancelable: false }
+        )
+      })
       .catch(err => console.error(err));
   }
 

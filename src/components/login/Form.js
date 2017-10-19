@@ -14,7 +14,8 @@ class Form extends Component {
     super(props);
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      user: null,
     };
   }
 
@@ -38,9 +39,9 @@ class Form extends Component {
           </View>
         </View>
         <View style={ styles.btn_container }>
-          <Button title="Login" onPress={() => this.props.navigation.dispatch({ type: 'Login' })}></Button>
+          <Button title="Login" onPress={() => this.normalLogin() }></Button>
         </View>
-        <View style={{ marginTop: -14, height: 90, justifyContent: 'center', alignItems: 'center' }}>
+        <View style={{ marginTop: -14, height: 65, justifyContent: 'center', alignItems: 'center' }}>
           <Text style={{ fontSize: 18 }}>or</Text>
         </View>
         <View style={ styles.social_box }>
@@ -59,7 +60,11 @@ class Form extends Component {
   }
 
   normalLogin() {
-    this.props.navigation.navigate('home');
+    this.goHome();
+  }
+
+  goHome() {
+    this.props.handleLogin(this.state.user);
   }
 
   // https://console.cloud.google.com
@@ -69,12 +74,13 @@ class Form extends Component {
       callback: GOOGLE_CALLBACK
     }).then((info) => {
       // info.user - user details from the provider
-      console.log('Google login: ', info);
       // info.credentials - tokens from the provider
+      console.log('Google login: ', info);
+      this.goHome();
     }).catch((error) => {
       // error.code
       // error.description
-      console.log('Google login: ', error);
+      console.log('Google login error: ', error);
     });
   }
 
@@ -87,13 +93,15 @@ class Form extends Component {
       fields: ['email', 'first_name', 'last_name'], // you can override the default fields here
     }).then((info) => {
       // info.user - user details from the provider
-      console.log('Facebook login: ', info);
       // info.credentials - tokens from the provider
+      console.log('Facebook login: ', info);
+      this.goHome();
     }).catch((error) => {
       // error.code
       // error.description
-      console.log('Facebook login: ', error);
+      console.log('Facebook login error: ', error);
     });
+
   }
 
   // https://apps.twitter.com
@@ -104,12 +112,13 @@ class Form extends Component {
       appSecret: TWITTER_APP_SECRET
     }).then((info) => {
       // info.user - user details from the provider
-      console.log('Twitter login: ', info);
       // info.credentials - tokens from the provider
+      console.log('Twitter login: ', info);
+      this.goHome();
     }).catch((error) => {
       // error.code
       // error.description
-      console.log('Twitter login: ', error);
+      console.log('Twitter login error: ', error);
     });
   }
 

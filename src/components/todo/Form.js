@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, Button, TextInput, Picker, Alert } from 'react-native'
+import { StyleSheet, View, Text, Button, TextInput, Picker, Alert, AsyncStorage } from 'react-native'
 
 import Toast from 'react-native-simple-toast';
 import MCIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons'
@@ -13,6 +13,8 @@ import { readEntries, createEntry, updateEntry } from '../../redux/modules/entri
 * TODO: 
 * CustomTextArea
 */
+
+const key = '@MyApp:key';
 
 class Form extends Component {
 
@@ -84,8 +86,21 @@ class Form extends Component {
     );
   }
 
-  saveEntry() {
+  localSave = async () => { 
+    try { 
+      await AsyncStorage.setItem(key, this.state.entry); 
+      Alert.alert('Saved', 'Successfully saved on device'); 
+    } catch (error) { 
+      Alert.alert('Error', 'There was an error while saving the data'); 
+    } 
+  }
 
+  saveEntry() {
+    Alert.alert('Is online?', (this.props.is_online) ? 'y': 'n');
+    if(!this.props.is_online) {
+      this.localSave();
+      return;
+    }
     if(!this.state.entry.id) {
       this.props.dispatch(createEntry(this.state.entry)).then(( response ) => this.handleResponse(response));
     } else {
@@ -129,6 +144,7 @@ const styles = StyleSheet.create({
 const map_state_props = (state) => {
   return {
     entries: state.entries,
+    is_online: state.network.isOnline
   }
 };
 

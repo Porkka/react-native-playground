@@ -11,7 +11,7 @@ class Item extends Component {
   constructor(props) {
     super(props);
     this.opacity_value = new Animated.Value(0);
-    this.sliding_value = new Animated.Value(300);
+    this.sliding_value = new Animated.Value(400);
   }
 
   componentDidMount () {
@@ -32,7 +32,7 @@ class Item extends Component {
       {
         toValue: 0,
         easing: Easing.linear,
-        duration: 80 * this.props.index,
+        duration: 50 * this.props.index,
       }
     ).start();
   }

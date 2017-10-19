@@ -7,7 +7,6 @@ import { addNavigationHelpers, StackNavigator } from 'react-navigation'
 import { MenuContext } from 'react-native-popup-menu';
 
 import LoginScreen from '../screens/Login'
-import ProfileScreen from '../screens/Profile'
 import DrawerNavigation from './DrawerNavigation'
 import EntrySaveScreen from '../screens/entries/Save'
 import { setConnectivity } from '../redux/modules/network/actions'

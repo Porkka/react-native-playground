@@ -1,13 +1,12 @@
 # react-native-playground
 Testing React Native
 
-For testing purposes WebSocket server and JSON server were installed.
+For testing purposes WebSocket server and JSON server were installed.  
 https://github.com/websockets/ws  
-https://github.com/typicode/json-server  
+https://github.com/typicode/json-server
 ### Topics still to explore
 - Push Notifications
-- Writing Native Modules 
-
+- Writing Native Modules
 ### Animations
 http://facebook.github.io/react-native/releases/next/docs/animations.html#animations  
 Sliding and fading in FlatList items from the right on component mount. Debugging remotely causes major fps drops while animating.
@@ -53,7 +52,7 @@ https://github.com/instea/react-native-popup-menu
 ```
 npm i --save react-native-popup-menu
 ```
-Todo entry (src/components/todo/Item) has this.
+Todo entry ```src/components/todo/Item``` has example of this.
 ### React Native Dotenv
 ```
 npm i react-native-dotenv --save-dev
@@ -93,8 +92,8 @@ Alert user, if the device's connection is lost.
 https://facebook.github.io/react-native/docs/asyncstorage.html
 Saving data localy. Useful when network connection is lost. Not well implemented here, but you can view it in the ```src/components/todo/Form```.
 ### Runing On Device
-https://facebook.github.io/react-native/docs/running-on-device.html
-Method 1: Using adb reverse (recommended)
+https://facebook.github.io/react-native/docs/running-on-device.html  	
+Method 1: Using adb reverse (recommended)  
 Common ADB location on windows:
 ```
 C:\Users\JohnDoe\AppData\Local\Android\sdk1\platform-tools

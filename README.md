@@ -5,6 +5,7 @@ Testing React Native
 - Animations
 - WebSockets
 - Push Notifications
+- Writing Native Modules 
 
 ###### Animations
 TODO: Slide FlatList items from the right on component mount.
@@ -18,6 +19,8 @@ https://github.com/websockets/ws
 npm i ws
 ```
 ###### Push Notifications
+TODO
+###### Writing Native Modules
 TODO
 ###### Redux
 https://github.com/reactjs/redux

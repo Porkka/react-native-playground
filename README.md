@@ -2,22 +2,21 @@
 Testing React Native
 
 ##### Topics still to explore
-- Animations
 - WebSockets
 - Push Notifications
 - Writing Native Modules 
 
 ##### Animations
-TODO: Slide FlatList items from the right on component mount.
+http://facebook.github.io/react-native/releases/next/docs/animations.html#animations
+Sliding and fading in FlatList items from the right on component mount. Debugging remotely causes major fps drops while animating.
 
 ##### Websockets
-TODO: Receive from and send something over websocket.
-
 For testing purposes WebSocket server will be installed to the machine.
 https://github.com/websockets/ws
 ```
 npm i ws
 ```
+
 ##### Push Notifications
 TODO
 ##### Writing Native Modules
@@ -45,10 +44,10 @@ react-native link react-native-vector-icons
 ```
 We are using just the MaterialCommunityIcons.
 https://materialdesignicons.com/
-
 ##### React Navigation
 https://reactnavigation.org/
 https://github.com/react-community/react-navigation
+https://github.com/react-community/react-navigation/tree/master/examples
 ```
 npm i --save react-navigation
 ```

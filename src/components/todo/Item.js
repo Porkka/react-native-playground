@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text, LayoutAnimation } from 'react-native';
 
 import MCIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons'
 import { Menu, MenuOptions, MenuOption,  MenuTrigger } from 'react-native-popup-menu'

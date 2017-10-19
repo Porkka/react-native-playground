@@ -46,15 +46,14 @@ export function loginUser(user) {
   return {
     types: [ LOGIN_USER, LOGIN_SUCCESS, FAIL ],
     promise: {
-      method: 'POST',
-      url: 'http://192.168.11.2:3000/users',
+      method: 'GET',
+      url: 'http://192.168.11.2:3000/user/login',  // Just something to simulate the 'login' api call.
       payload: user,
     }
   }
 }
 // You can call this from any reduxed component as this.props.goToComponent1(params)
 export function readUsers() {
-  
   return {
     types: [ READ_USERS, SUCCESS, FAIL ],
     promise: {
@@ -62,17 +61,6 @@ export function readUsers() {
       url: 'http://192.168.11.2:3000/users',
     }
   };
-  // return {
-  //   type: READ_USERS,
-  //   payload: [
-  //     {
-  //       id: 1,
-  //       first_name: 'John',
-  //       last_name: 'Doe',
-  //       email: 'john.doe@doers.do'
-  //     }
-  //   ]
-  // };
 }
 export function updateUser(user) {
   return {

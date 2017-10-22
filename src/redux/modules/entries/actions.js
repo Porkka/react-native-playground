@@ -16,6 +16,8 @@
 * 
 */
 
+import { API_URL } from 'react-native-dotenv'
+
 export const CREATE_ENTRY = 'entries/create';
 export const CREATE_SUCCESS = 'entries/create_success';
 export const UPDATE_ENTRY = 'entries/update';
@@ -36,14 +38,13 @@ export const DELETE_SUCCESS = 'entries/delete_success';
 * Andrew Clark - acdlite - Front-end engineer at Facebook. Co-creator of Redux. Creator of Recompose.
 *
 */
-const base_url = 'http://192.168.11.2:3000/';
 
 export function createEntry(entry) {
   return {
     types: [ CREATE_ENTRY, CREATE_SUCCESS, FAIL ],
     promise: {
       method: 'POST',
-      url: base_url + 'entry',
+      url: API_URL + 'entry',
       payload: entry
     },
   };
@@ -53,7 +54,7 @@ export function readEntries() {
     types: [ READ_ENTRIES, READ_SUCCESS, FAIL ],
     promise: {
       method: 'GET',
-      url: base_url + 'entries',
+      url: API_URL + 'entries',
     }
   };
 }
@@ -62,7 +63,7 @@ export function updateEntry(entry) {
     types: [ UPDATE_ENTRY, UPDATE_SUCCESS, FAIL ],
     promise: {
       method: 'PUT',
-      url: base_url + 'entry',
+      url: API_URL + 'entry',
       payload: entry
     },
   };
@@ -72,7 +73,7 @@ export function deleteEntry(entry) {
     types: [ DELETE_ENTRY, DELETE_SUCCESS, FAIL ],
     promise: {
       method: 'DELETE',
-      url: base_url + 'entry',
+      url: API_URL + 'entry',
       payload: entry
     }
   }

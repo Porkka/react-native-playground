@@ -4,21 +4,50 @@ Testing React Native
 For testing purposes WebSocket server and JSON server were installed.  
 https://github.com/websockets/ws  
 https://github.com/typicode/json-server
+
+### Can't run the project?
+Be sure to have react-native installed correctly   
+https://facebook.github.io/react-native/docs/getting-started.html > Building Projects with Native Code   
+
+- Android Studio
+- Correct packages from Android Studio: Appearance & Behavior → System Settings → Android SDK.
+- Correctly setup variables (JAVA_HOME, ANDROID_HOME).
+- Be sure that the ```./android``` folder has 0755 permissions.
+- You need running API server. Use provided ```./js-server/react-test.json``` or create your own.
+
+
+#### ./.env file contents
+If you don't provide used environment variables, the app will crash. Used variables are listed below. Callbacks, secrets and ids for social networks doesn't have to be correct for the app to run.
+```
+API_URL=http://192.168.11.2:3000   
+
+GOOGLE_CALLBACK=1234567
+GOOGLE_APP_ID=1234567   
+    
+FACEBOOK_APP_ID=1234567
+FACEBOOK_CALLBACK=1234567   
+   
+TWITTER_APP_SECRET=1234567    
+TWITTER_APP_ID=1234567    
+TWITTER_CALLBACK=1234567     
+```
+
 ### Topics still to explore
 - Push Notifications
 - Writing Native Modules
 ### Animations
 http://facebook.github.io/react-native/releases/next/docs/animations.html#animations  
-Sliding and fading in FlatList items from the right on component mount. Debugging remotely causes major fps drops while animating.
+Sliding and fading effect in FlatList items on component mount. Debugging remotely causes major fps drops while animating.
 ### Websockets
+https://facebook.github.io/react-native/docs/network.html   
 Small example in ```.src/screens/Messages```
 ### Push Notifications
 TODO
 ### Writing Native Modules
 TODO
 ### Redux
-https://github.com/reactjs/redux  
 http://redux.js.org/  
+https://github.com/reactjs/redux  
 ```
 npm i --save redux
 npm i --save react-redux
@@ -37,7 +66,7 @@ https://github.com/oblador/react-native-vector-icons
 npm i --save react-native-vector-icons
 react-native link react-native-vector-icons
 ```
-We are using just the MaterialCommunityIcons.  
+Here we are using just the MaterialCommunityIcons.  
 https://materialdesignicons.com/
 ### React Navigation
 https://reactnavigation.org/  
@@ -54,8 +83,15 @@ npm i --save react-native-popup-menu
 ```
 Todo entry ```src/components/todo/Item``` has example of this.
 ### React Native Dotenv
+https://github.com/zetachang/react-native-dotenv
 ```
 npm i react-native-dotenv --save-dev
+```
+Add the react-native-dotenv preset to your .babelrc file at the project root.
+```
+{
+  "presets": ["react-native", "react-native-dotenv"]
+}
 ```
 Here used to store social app ids and secrets.
 ### React Native Simple Auth

@@ -118,7 +118,7 @@ https://github.com/lwansbrough/react-native-camera
 npm i react-native-camera@https://github.com/lwansbrough/react-native-camera.git --save
 react-native link react-native-camera
 ```
-Faced an error during the first use.
+Faced following error during use:
 ```
 Warning: Native component for "RCTCamera" does not exist
 ```
@@ -128,7 +128,7 @@ https://facebook.github.io/react-native/docs/netinfo.html
 Alert user, if the device's connection is lost.
 ### AsyncStorage
 https://facebook.github.io/react-native/docs/asyncstorage.html
-Saving data localy. Useful when network connection is lost. Not well implemented here, but you can view it in the ```src/components/todo/Form```.
+Saving data localy. Useful when network connection is lost. not thoroughly implemented here, but you can view it at ```src/components/todo/Form```.
 ### Runing On Device
 https://facebook.github.io/react-native/docs/running-on-device.html  	
 Method 1: Using adb reverse (recommended)  

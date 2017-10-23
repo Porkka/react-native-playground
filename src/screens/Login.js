@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { StyleSheet, ScrollView, View, Text, Button, TouchableOpacity, Alert, Vibration } from 'react-native';
 
+import { connect } from 'react-redux';
 import * as global_styles from '../styles/global';
 
 import LoginForm from '../components/login/Form';
 import SignUpForm from '../components/signup/Form';
 
 import { loginUser } from '../redux/modules/users/actions'
+
+// Get your interest
+const interest = "donuts";
 
 class Login extends Component {
 
@@ -25,6 +28,25 @@ class Login extends Component {
   componentWillReceiveProps(nextProps) {
     this.props = nextProps;
     this._checkNetworkStatus();
+  }
+
+  initInterests() {
+      // Subscribe to push notifications
+      if (Platform.OS === 'ios') {
+          // iOS callbacks are beta, so dont use them
+          RNPusherPushNotifications.subscribe(interest);
+      } else {
+          // Android is better, so handle faults
+          RNPusherPushNotifications.subscribe(
+              interest,
+              (error) => {
+                  console.error(error);
+              },
+              (success) => {
+                  console.log(success);
+              }
+          );
+      }
   }
 
   _checkNetworkStatus() { // Refactor to network status component

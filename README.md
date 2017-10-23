@@ -13,13 +13,13 @@ https://facebook.github.io/react-native/docs/getting-started.html > Building Pro
 - Correct packages from Android Studio: Appearance & Behavior → System Settings → Android SDK.
 - Correctly setup variables (JAVA_HOME, ANDROID_HOME).
 - Be sure that the ```./android``` folder has 0755 permissions.
-- You need running API server. Use provided ```./js-server/react-test.json``` or create your own.
+- You need running API server. Use provided at ```./js-server/react-test.json``` or create your own.
 
 
 #### ./.env file contents
 If you don't provide used environment variables, the app will crash. Used variables are listed below. Callbacks, secrets and ids for social networks doesn't have to be correct for the app to run.
 ```
-API_URL=http://192.168.11.2:3000   
+API_URL=http://192.xxx.xx.x:3000   
 
 GOOGLE_CALLBACK=1234567
 GOOGLE_APP_ID=1234567   
@@ -33,7 +33,6 @@ TWITTER_CALLBACK=1234567
 ```
 
 ### Topics still to explore
-- Push Notifications
 - Writing Native Modules
 ### Animations
 http://facebook.github.io/react-native/releases/next/docs/animations.html#animations  
@@ -42,7 +41,10 @@ Sliding and fading effect in FlatList items on component mount. Debugging remote
 https://facebook.github.io/react-native/docs/network.html   
 Small example in ```.src/screens/Messages```
 ### Push Notifications
-TODO
+Work in progress: Laravel pusher  
+https://pusher.com/docs/push_notifications/android  
+https://github.com/zo0r/react-native-push-notification/  
+Note: Push notifications for iOS require a physical device, you cannot test this on a simulator. For Android, your AVD must have Google APIs installed.
 ### Writing Native Modules
 TODO
 ### Redux

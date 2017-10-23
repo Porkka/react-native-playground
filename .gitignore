@@ -53,3 +53,4 @@ fastlane/Preview.html
 fastlane/screenshots
 
 .env
+android/app/google-services.json

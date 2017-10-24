@@ -14,9 +14,23 @@ https://facebook.github.io/react-native/docs/getting-started.html > Building Pro
 - Correctly setup variables (JAVA_HOME, ANDROID_HOME).
 - Be sure that the ```./android``` folder has 0755 permissions.
 - You need running API server. Use provided at ```./js-server/react-test.json``` or create your own.
-
-
-#### ./.env file contents
+### React Native Dotenv
+https://github.com/zetachang/react-native-dotenv
+```
+npm i react-native-dotenv --save-dev
+```
+Add the react-native-dotenv preset to your .babelrc file at the project root.
+```
+{
+  "presets": ["react-native", "react-native-dotenv"]
+}
+```
+Here used to store social app ids and secrets. Also API's base url is kept in .env.  
+When editing .env, you need to restart the packager and clear it's cache.
+```
+npm start -- --reset-cache
+```
+##### ./.env file contents
 If you don't provide used environment variables, the app will crash. Used variables are listed below. Callbacks, secrets and ids for social networks doesn't have to be correct for the app to run.
 ```
 API_URL=http://192.xxx.xx.x:3000   
@@ -31,7 +45,6 @@ TWITTER_APP_SECRET=1234567
 TWITTER_APP_ID=1234567    
 TWITTER_CALLBACK=1234567     
 ```
-
 ### Topics still to explore
 - Writing Native Modules
 ### Animations
@@ -41,10 +54,14 @@ Sliding and fading effect in FlatList items on component mount. Debugging remote
 https://facebook.github.io/react-native/docs/network.html   
 Small example in ```.src/screens/Messages```
 ### Push Notifications
-Work in progress: Laravel pusher  
+##### Laravel Pusher
 https://pusher.com/docs/push_notifications/android  
-https://github.com/zo0r/react-native-push-notification/  
-Note: Push notifications for iOS require a physical device, you cannot test this on a simulator. For Android, your AVD must have Google APIs installed.
+##### React Native FCM
+https://github.com/evollu/react-native-fcm
+```
+npm i react-native-fcm --save
+react-native link react-native-fcm
+```
 ### Writing Native Modules
 TODO
 ### Redux
@@ -56,8 +73,7 @@ npm i --save react-redux
 ```
 ### Custom Fonts
 https://fonts.google.com/
-In this project, we are using Roboto from Google Fonts.
-
+In this project, we are using Roboto from Google Fonts.   
 When importing files to workspace:
 - The name should be lowercase.
 - There shouldn't be any spaces in the name.
@@ -84,18 +100,6 @@ https://github.com/instea/react-native-popup-menu
 npm i --save react-native-popup-menu
 ```
 Todo entry ```src/components/todo/Item``` has example of this.
-### React Native Dotenv
-https://github.com/zetachang/react-native-dotenv
-```
-npm i react-native-dotenv --save-dev
-```
-Add the react-native-dotenv preset to your .babelrc file at the project root.
-```
-{
-  "presets": ["react-native", "react-native-dotenv"]
-}
-```
-Here used to store social app ids and secrets.
 ### React Native Simple Auth
 https://github.com/adamjmcgrath/react-native-simple-auth  
 ```

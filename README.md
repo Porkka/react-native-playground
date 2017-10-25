@@ -54,8 +54,12 @@ Sliding and fading effect in FlatList items on component mount. Debugging remote
 https://facebook.github.io/react-native/docs/network.html   
 Small example in ```.src/screens/Messages```
 ### Push Notifications
-##### Laravel Pusher
-https://pusher.com/docs/push_notifications/android  
+##### Firebase
+https://console.firebase.google.com  
+With Firebase you can send messages to variety of platforms including Android and iOS.  
+https://gist.github.com/MohammadaliMirhamed/7384b741a5c979eb13633dc6ea1269ce   
+You can also send messages from your server to Firebase, which in turn delivers it to targeted machine or group.  
+https://gist.github.com/Porkka/5dcb3fae795ed6d4b47a93540491e52a
 ##### React Native FCM
 https://github.com/evollu/react-native-fcm
 ```

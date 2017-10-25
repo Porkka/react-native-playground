@@ -57,7 +57,7 @@ Small example in ```.src/screens/Messages```
 ##### Firebase
 https://console.firebase.google.com  
 With Firebase you can send messages to variety of platforms including Android and iOS.  
-You can also send messages from your server to Firebase, which in turn delivers it to targeted machine or group.  
+You can also send messages from your server to Firebase, which in turn delivers them to the targeted machine or group.  
 https://gist.github.com/Porkka/5dcb3fae795ed6d4b47a93540491e52a
 ##### React Native FCM
 https://github.com/evollu/react-native-fcm
@@ -125,11 +125,6 @@ https://github.com/lwansbrough/react-native-camera
 npm i react-native-camera@https://github.com/lwansbrough/react-native-camera.git --save
 react-native link react-native-camera
 ```
-Faced following error during use:
-```
-Warning: Native component for "RCTCamera" does not exist
-```
-On android go to ```./android/app/build.gradle``` and add  ```compile project(':react-native-camera')``` to the dependencies section.
 ### Network Connectivity Status
 https://facebook.github.io/react-native/docs/netinfo.html
 Alert user, if the device's connection is lost.

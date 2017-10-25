@@ -75,7 +75,7 @@ npm i --save redux
 npm i --save react-redux
 ```
 ### Custom Fonts
-https://fonts.google.com/
+https://fonts.google.com/  
 In this project, we are using Roboto from Google Fonts.   
 When importing files to workspace:
 - The name should be lowercase.

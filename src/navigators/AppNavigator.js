@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { NetInfo } from 'react-native'
-import { addNavigationHelpers, StackNavigator } from 'react-navigation'
+import { NetInfo, BackHandler } from 'react-native'
+import { addNavigationHelpers, StackNavigator, NavigationActions  } from 'react-navigation'
 
 import { MenuContext } from 'react-native-popup-menu';
 
@@ -19,19 +19,37 @@ export const AppNavigator = StackNavigator({
 
 
 class AppWithNavigationState extends Component {
-	
+
 	componentWillMount = () => {
 		NetInfo.isConnected.addEventListener(
 		  'connectionChange',
 		  this.onConnectivityChange
 		);
 	}
+
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
+  }
+
 	componentWillUnMount = () => {
+    BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
 		NetInfo.isConnected.removeEventListener(
 		  'connectionChange',
 		  this.onConnectivityChange
 		);
 	}
+
+  onBackPress = () => {
+    const { dispatch, nav } = this.props;
+    console.log(nav);
+    if (nav.index === 0) {
+      return false;
+    }
+    dispatch(NavigationActions.back());
+    return true;
+  };
+
+
 	onConnectivityChange = (connected) => {
 		this.props.dispatch(setConnectivity(connected))
 	}

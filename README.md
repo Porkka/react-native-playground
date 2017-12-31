@@ -1,13 +1,20 @@
 # react-native-playground
-Testing React Native
+This repository is here for anyone who wants to start playing around with React Native. It's not a boilerplate nor a complete application, but a collection of litle examples structured as an project.
+### First steps
+To start up this project, you should alredy have installed React Native. If not, checkout the [Getting Started](https://facebook.github.io/react-native/docs/getting-started.html) for instructions. After that, you can continue here by cloning this repository and installing the components / plugins used in this project. All plugins and topics covered in this project are listed below along with small introduction.
+```
+git clone https://github.com/thejebo/react-native-playground.git
+cd react-native-playground
+npm install
+```
+After the installation you need to create the ```.env``` (for the plugin ```react-native-dotenv```). The contents of ```.env``` are listed below. Finally, to run the project, enter ```react-native run-android``` or react-native ```react-native run-ios``` while still in the root of the project.
 
-For testing purposes WebSocket server and JSON server were installed.  
+For testing purposes WebSocket server and JSON server were installed.
 https://github.com/websockets/ws  
 https://github.com/typicode/json-server
 
 ### Can't run the project?
-Be sure to have react-native installed correctly   
-https://facebook.github.io/react-native/docs/getting-started.html > Building Projects with Native Code   
+Be sure you have installed React Native correctly. https://facebook.github.io/react-native/docs/getting-started.html > Building Projects with Native Code
 
 - Android Studio
 - Correct packages from Android Studio: Appearance & Behavior → System Settings → Android SDK.
@@ -19,7 +26,7 @@ https://github.com/zetachang/react-native-dotenv
 ```
 npm i react-native-dotenv --save-dev
 ```
-Add the react-native-dotenv preset to your .babelrc file at the project root.
+Add the react-native-dotenv preset to your ```.babelrc``` file at the project root.
 ```
 {
   "presets": ["react-native", "react-native-dotenv"]
@@ -31,22 +38,20 @@ When editing .env, you need to restart the packager and clear it's cache.
 npm start -- --reset-cache
 ```
 ##### ./.env file contents
-If you don't provide used environment variables, the app will crash. Used variables are listed below. Callbacks, secrets and ids for social networks doesn't have to be correct for the app to run.
+If you don't provide used environment variables, the app will crash. Used variables are listed below. **Callbacks, secrets and ids for social networks doesn't have to be correct for the app to run.**
 ```
-API_URL=http://192.xxx.xx.x:3000   
+API_URL=http://192.xxx.xx.x:3000
 
 GOOGLE_CALLBACK=1234567
-GOOGLE_APP_ID=1234567   
+GOOGLE_APP_ID=1234567
     
 FACEBOOK_APP_ID=1234567
-FACEBOOK_CALLBACK=1234567   
+FACEBOOK_CALLBACK=1234567
    
-TWITTER_APP_SECRET=1234567    
-TWITTER_APP_ID=1234567    
-TWITTER_CALLBACK=1234567     
+TWITTER_APP_SECRET=1234567
+TWITTER_APP_ID=1234567
+TWITTER_CALLBACK=1234567
 ```
-### Topics still to explore
-- Writing Native Modules
 ### Animations
 http://facebook.github.io/react-native/releases/next/docs/animations.html#animations  
 Sliding and fading effect in FlatList items on component mount. Debugging remotely causes major fps drops while animating.
@@ -56,8 +61,7 @@ Small example in ```.src/screens/Messages```
 ### Push Notifications
 ##### Firebase
 https://console.firebase.google.com  
-With Firebase you can send messages to variety of platforms including Android and iOS.  
-You can also send messages from your server to Firebase, which in turn delivers them to the targeted machine or group.  
+With Firebase you can send messages to variety of platforms including Android and iOS. You can also send messages from your server to Firebase, which in turn delivers them to the targeted machine or group.  
 https://gist.github.com/Porkka/5dcb3fae795ed6d4b47a93540491e52a
 ##### React Native FCM
 https://github.com/evollu/react-native-fcm
@@ -65,8 +69,6 @@ https://github.com/evollu/react-native-fcm
 npm i react-native-fcm --save
 react-native link react-native-fcm
 ```
-### Writing Native Modules
-TODO
 ### Redux
 http://redux.js.org/  
 https://github.com/reactjs/redux  
